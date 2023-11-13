@@ -1,2 +1,0 @@
-INDEX VERSION 1.134+/Users/gabrielburguiere/Desktop/MIDL/L2/ILU 1/POO/Eclispe TP/LesGaulois/.metadata/.plugins/org.eclipse.jdt.core
-1865797976.index

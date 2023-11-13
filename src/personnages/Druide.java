@@ -18,7 +18,15 @@ public class Druide {
     public String getNom() {
         return nom;
     }
-
+    
+    public void booster(Gaulois gaulois) {
+        if (gaulois.getNom().equals("Obélix")) {
+            System.out.println("Non, Obélix !... Tu n’auras pas de potion magique !");
+        } else {
+            gaulois.boirePotion(forcePotion);
+        }
+    }
+    
     public void parler(String texte) {
         System.out.println(prendreParole() + "« " + texte + "»");
     }
@@ -32,7 +40,7 @@ public class Druide {
         forcePotion = effetPotionMin + random.nextInt(effetPotionMax - effetPotionMin + 1);
 
         if (forcePotion > 7) {
-            System.out.println("J'ai préparé une potion magique de force " + forcePotion);
+            System.out.println("J'ai préparé une super potion de force " + forcePotion);
         } else {
             System.out.println("Je n'ai pas trouvé tous les ingrédients, ma potion est seulement de force " + forcePotion);
         }
