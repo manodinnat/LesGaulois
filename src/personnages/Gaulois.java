@@ -4,7 +4,7 @@ public class Gaulois {
     private String nom;
     private int force;
     private int effetPotion = 1;
-    private int nbTrophees;
+    private int nbtrophees;
     private Equipement[] trophees = new Equipement[100];
 
     public Gaulois(String nom, int force) {
@@ -46,20 +46,35 @@ public class Gaulois {
         panoramix.preparerPotion();
         asterix.boirePotion(panoramix.getForcePotion());
     }
-    
+
     private String prendreParole() {
         return "Le gaulois " + nom + " : ";
     }
-    
-    
+    public void faireUneDonnation(Musee musee) {
+		if (nbtrophees > 0) {
+            StringBuilder annonce = new StringBuilder();
+            annonce.append("Le gaulois ").append(nom).append(" : « Je donne au musee tous mes trophees :\n");
+            for (int i = 0; i < nbtrophees; i++) {
+                musee.donnerTrophees(this, trophees[i]);
+                annonce.append("- ").append(trophees[i]).append("\n");
+                trophees[i] = null; // Le trophée est donné, donc il est retiré du tableau du gaulois
+            }
+            nbtrophees = 0; // Reset le nombre de trophées du gaulois
+            annonce.append("»");
+            System.out.println(annonce.toString());
+        } else {
+            System.out.println("Le gaulois " + nom + " n'a pas de trophées à donner.");
+        }
+    }
     
     public void frapper(Romain romain) {
         System.out.println(nom + " envoie un grand coup dans la mâchoire de " + romain.getNom());
         int marc = (force / 3) * effetPotion;
         Equipement[] equipements = romain.recevoirCoup(marc);
+
         if (equipements != null) {
-            for (int i = 0; i < equipements.length; i++, nbTrophees++) {
-                this.trophees[nbTrophees] = equipements[i];
+            for (int i = 0; i < equipements.length; i++, nbtrophees++) {
+                this.trophees[nbtrophees] = equipements[i];
             }
         }
     }

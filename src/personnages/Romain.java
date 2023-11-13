@@ -5,8 +5,12 @@ public class Romain {
     private int force;
     private Equipement[] equipements = new Equipement[2];
     private int nbEquipement = 0;
+    private String texte;
 
     public Romain(String nom, int force) {
+    	if (force < 6) {
+    		throw new IllegalArgumentException("invalid force :" + force);
+    	}
         this.nom = nom;
         this.force = force;
     }
@@ -15,9 +19,7 @@ public class Romain {
         return nom;
     }
     
-    public int getForce() {
-    	return force;
-    }
+
 
     public void parler(String texte) {
         System.out.println(prendreParole() + "« " + texte + "»");
@@ -46,10 +48,9 @@ public class Romain {
             case 2:
                 afficherMessageEquipement("est déjà bien protégé", null);
                 break;
-        	default:
-        		break;
+            default:
+                break;
         }
-    
     }
 
     private void afficherMessageEquipement(String message, Equipement equipement) {
@@ -68,51 +69,49 @@ public class Romain {
         minus.sEquiper(Equipement.CASQUE);
     }
 
-    //public void recevoirCoup(int forceCoup) {
-       // assert force > 0 : "Precondition failed: La force d'un romain devrait être positive!";
-        //int initialForce = force;
-
-        //force -= forceCoup;
-        //if (force > 0) {
-        //    parler("Aïe !");
-        //} else {
-        //    parler("J'abandonne...");
-        //}
-
-        //assert force < initialForce : "Postcondition failed: La force du romain devrait avoir diminuée!";
-    //}
+//    public void recevoirCoup(int forceCoup) {
+//        assert force > 0 : "Precondition failed: Roman's force should be positive!";
+//        int initialForce = force;
+//
+//        force -= forceCoup;
+//        if (force > 0) {
+//            parler("Aïe !");
+//        } else {
+//            parler("J'abandonne...");
+//        }
+//
+//        assert force < initialForce : "Postcondition failed: Roman's force should have decreased!";
+//    }
     
     public Equipement[] recevoirCoup(int forceCoup) {
-        Equipement[] equipementEjecte = null;
-        // précondition
-        assert force > 0;
-        int oldForce = force;
-        forceCoup = calculResistanceEquipement(forceCoup);
-        force -= forceCoup;
-        //if (force > 0) {
-        //	parler("Aïe");
-        //} else {
-        //     equipementEjecte = ejecterEquipement();
-        //     parler("J'abandonne...");
-        //}
-        if (force != 0) {
-        	parler("Aïe");
-        }else {
-            equipementEjecte = ejecterEquipement();
-            parler("J'abandonne...");
-         
-       }
-       // post condition la force a diminuée
-       assert force < oldForce;
-       return equipementEjecte;
+    	Equipement[] equipementEjecte = null;
+    	// Precondition
+    	assert force > 0;
+    	int oldForce = force;
+    	forceCoup = calculresistanceEquipement(forceCoup);
+    	force -= forceCoup;
+    	// if (force > 0) {
+    	// parler("Aïe");
+    	// } else {
+    	// equipementEjecte = ejecterEquipement();
+    	// parler("J'abandonne...");
+    	// }
+    	if (force == 0) {
+    		parler("Aïe");
+    	} else {
+	    	equipementEjecte = ejecterEquipement();
+	    	parler("J'abandonne...");
+    	}
+    		// post condition la force a diminuée
+    		assert force < oldForce;
+    		return equipementEjecte;
     }
-    
-    private int calculResistanceEquipement(int forceCoup) {
+    private int calculresistanceEquipement(int forceCoup) {
         int initialForceCoup = forceCoup; // Store the initial force of the coup
-        String texte = "Ma force est de " + this.force + ", et la force du coup est de " + forceCoup;
+        texte = "Ma force est de " + this.force + ", et la force du coup est de " + forceCoup;
         int resistanceEquipement = 0;
         if (nbEquipement != 0){
-            texte += "\nMais heureusement, grace à mon équipement sa force est diminué de ";
+            texte += "\nMais heureusement, grace à mon équipement ma force n'est diminué que de ";
             for (int i = 0; i < nbEquipement; i++) {
                 if (equipements[i] != null && equipements[i].equals(Equipement.BOUCLIER)) {
                     resistanceEquipement += 8;
@@ -131,18 +130,25 @@ public class Romain {
     
     private Equipement[] ejecterEquipement() {
     	Equipement[] equipementEjecte = new Equipement[nbEquipement];
-    	System.out.println("L'équipement de " + nom + "s'envole sous la force du coup.");
-         int nbEquipementEjecte = 0;
-         for (int i = 0; i < nbEquipement; i++) {
-        	 if (equipements[i] != null) {
-    	    	 equipementEjecte[nbEquipementEjecte] = equipements[i];
-    	         nbEquipementEjecte++;
-    	         equipements[i] = null;
-    	     }
-    	  }
-    	 return equipementEjecte;
+    	System.out.println("L'équipement de " + nom + " s'envole sous la force du coup.");
+    	int nbEquipementEjecte = 0;
+    	for (int i = 0; i < nbEquipement; i++) {
+    		if (equipements[i] != null) {
+    			equipementEjecte[nbEquipementEjecte] =
+    			equipements[i];
+    			nbEquipementEjecte++;
+    			equipements[i] = null;
+    		}
+    	}
+    	return equipementEjecte;
     }
-    
-    
-}
 
+	public int getForce() {
+		return force;
+	}
+
+
+
+
+
+}

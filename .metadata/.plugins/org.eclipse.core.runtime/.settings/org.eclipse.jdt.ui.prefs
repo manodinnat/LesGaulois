@@ -1,6 +1,8 @@
-content_assist_proposals_background=255,255,255
-content_assist_proposals_foreground=0,0,0
+command=/Users/gabrielburguiere/.p2/pool/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.macosx.x86_64_17.0.8.v20230831-1047/jre/bin/javadoc
+content_assist_number_of_computers=15
 eclipse.preferences.version=1
+org.eclipse.jdt.internal.ui.navigator.layout=2
+org.eclipse.jdt.internal.ui.navigator.librariesnode=true
 org.eclipse.jdt.ui.formatterprofiles.version=23
 spelling_locale_initialized=true
 typefilter_migrated_2=true
